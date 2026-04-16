@@ -1,7 +1,7 @@
 Package: Nassim.Ikhelef.m1ecap
 Title: Analyse des statistiques de la Premier League
 Version: 0.0.0.9000
-   Authors@R: 
+Authors@R: 
     person("Nassim", "Ikhelef", email = "nassim.ikhelef@etu.univ-nantes.fr", role = c("aut", "cre"))
 Description: Ce package fournit des outils pour filtrer, calculer et visualiser les statistiques de buts des joueurs de Premier League.
 License: MIT + file LICENSE
