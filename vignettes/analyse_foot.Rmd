@@ -1,0 +1,80 @@
+---
+title: "Analyse des statistiques de Premier League"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Analyse des statistiques de Premier League}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Introduction
+
+Bienvenue dans la vignette explicative du package **Nassim.Ikhelef.m1ecap**. Ce package a été développé dans le cadre de l'évaluation de Master 1 et fournit un ensemble d'outils optimisés pour analyser les statistiques des joueurs de football de la Premier League durant la saison 2025/2026.
+
+Dans ce tutoriel, nous allons explorer les trois fonctionnalités principales de ce package qui forment une chaîne de traitement complète :
+1. Le filtrage des données par catégorie.
+2. L'agrégation et le calcul de statistiques.
+3. La visualisation graphique des résultats.
+
+### Chargement de l'environnement
+
+Commençons par charger notre package ainsi que la librairie `dplyr` pour pouvoir lire les résultats proprement.
+
+```{r setup}
+library(Nassim.Ikhelef.m1ecap)
+library(dplyr)
+```
+
+Le package inclut un jeu de données complet nommé `data_foot`. Jetons un œil aux premières lignes de nos variables clés :
+
+```{r show_data}
+# Affichage d'un extrait de la base de données
+head(data_foot[, c("Player", "Squad", "Pos", "Gls")])
+```
+
+## 1. Isoler les joueurs par poste
+
+La première fonction de notre package, `filtrer_poste()`, permet de conserver uniquement les joueurs évoluant à un poste spécifique. Par exemple, si nous voulons cibler notre analyse uniquement sur les attaquants (code "FW" pour Forward qui équivaut à Attaquant en français) :
+
+```{r filtre}
+mes_attaquants <- filtrer_poste(data_foot, "FW")
+
+# Vérifions combien d'attaquants ont été isolés dans la base :
+nrow(mes_attaquants)
+```
+
+## 2. Calculer la moyenne des buts par équipe
+
+Maintenant que nous savons manipuler la base, utilisons la fonction `calculer_moyenne_buts()` pour obtenir la moyenne des buts marqués par les joueurs de chaque club. Nous appliquons cette fonction sur notre jeu de données complet :
+
+```{r calcul}
+moyenne_buts_equipes <- calculer_moyenne_buts(data_foot)
+
+# Affichage du top 5 des équipes avec la meilleure moyenne de buts
+moyenne_buts_equipes |> 
+  arrange(desc(Moyenne_Buts)) |> 
+  head(5)
+```
+
+## 3. Visualisation graphique
+
+Enfin, la fonction `tracer_buts()` permet de générer instantanément un graphique `ggplot2` à partir de nos données résumées. Cela offre une vue d'ensemble claire des performances globales du championnat.
+
+```{r graphique, fig.width=7, fig.height=5}
+# Génération et affichage du graphique des buts
+mon_graphique <- tracer_buts(moyenne_buts_equipes)
+print(mon_graphique)
+```
+
+## Conclusion
+
+Avec ces trois fonctions, vous disposez désormais d'un flux de travail reproductible pour explorer les données de la Premier League, du nettoyage jusqu'à la restitution visuelle.
