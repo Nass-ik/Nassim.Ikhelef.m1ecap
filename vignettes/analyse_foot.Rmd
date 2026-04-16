@@ -27,11 +27,12 @@ Dans ce tutoriel, nous allons explorer les trois fonctionnalités principales de
 
 ### Chargement de l'environnement
 
-Commençons par charger notre package ainsi que la librairie `dplyr` pour pouvoir lire les résultats proprement.
+Commençons par charger notre package ainsi que la librairie `dplyr` et `ggplot2` pour pouvoir lire les résultats proprement.
 
 ```{r setup}
 library(Nassim.Ikhelef.m1ecap)
 library(dplyr)
+library(ggplot2)
 ```
 
 Le package inclut un jeu de données complet nommé `data_foot`. Jetons un œil aux premières lignes de nos variables clés :
